@@ -1,0 +1,122 @@
+<section class="col-l-12 padding-30">
+	<div class="col-l-10">
+		<div class="col-l-12 center head padding-bottom-20">
+			<h2>Instant Loan EMI Calculator</h2>
+		</div>
+		<div class="col-l-12 flex main-block">
+			<div [ngClass]="[emi && totalInterest && totalPayment ? 'col-l-4': 'col-l-6']" class="padding-10">
+				<!--
+				<div class="col-l-12 padding-bottom-20">
+					<label class="padding-right-10">Down Payment: ₹</label>
+					<input class="loanAmount" type="number" placeholder="Down Payment" name="downPayment" [(ngModel)]="downPayment" (input)="updateSliderMax('downPayment')">
+				</div>
+				<div class="col-l-12">
+					<mat-slider
+				        class="example-margin"
+				        [disabled]="disabled"
+				        [invert]="invert"
+				        [max]="downPmtMax"
+				        [min]="min"
+				        [step]="step"
+				        [thumbLabel]="thumbLabel"
+				        [tickInterval]="tickInterval"
+				        [(ngModel)]="downPayment"
+				        [vertical]="vertical"
+				        (click)="calculateEMI();">
+	    			</mat-slider>
+				</div>
+				-->
+				<div class="col-l-12 padding-bottom-20">
+					<label class="padding-right-10">Loan Amount: ₹</label>
+					<input class="loanAmount" type="number" placeholder="Loan Amount" name="loanAmount" [(ngModel)]="loanAmount" (input)="updateSliderMax('LoanAmount')">
+				</div>
+				<div class="col-l-12">
+					<mat-slider
+				        class="example-margin"
+				        [disabled]="disabled"
+				        [invert]="invert"
+				        [max]="loanAmtMax"
+				        [min]="min"
+				        [step]="step"
+				        [thumbLabel]="thumbLabel"
+				        [tickInterval]="0"
+				        [(ngModel)]="loanAmount"
+				        [vertical]="vertical"
+				        (click)="calculateEMI();">
+	    			</mat-slider>
+				</div>
+
+				<div class="col-l-12 padding-bottom-20">
+					<label class="padding-right-10">Interest Rate: %</label>
+					<input class="intRate" type="number" placeholder="Interest Rate" name="intRate" [(ngModel)]="intRate" (input)="updateSliderMax('InterestRate')" step="any">
+				</div>
+				<div class="col-l-12">
+					<mat-slider
+				        class="example-margin"
+				        [disabled]="disabled"
+				        [invert]="invert"
+				        [max]="intRateMax"
+				        [min]="min"
+				        [step]="0.1"
+				        [thumbLabel]="thumbLabel"
+				        [tickInterval]="0"
+				        [(ngModel)]="intRate"
+				        [vertical]="vertical"
+				        (click)="calculateEMI();">
+	    			</mat-slider>
+				</div>
+
+				<div class="col-l-12 padding-bottom-20">
+					<label class="padding-right-10">Loan Duration: </label>
+					<input class="loanDuration" type="number" placeholder="Duration" name="loanDuration" [(ngModel)]="loanDuration" (input)="updateSliderMax('LoanDuration')">
+					<label class="padding-left-10">Months</label>
+				</div>
+				<div class="col-l-12">
+					<mat-slider
+				        class="example-margin"
+				        [disabled]="disabled"
+				        [invert]="invert"
+				        [max]="loanDurMax"
+				        [min]="min"
+				        [step]="step"
+				        [thumbLabel]="thumbLabel"
+				        [tickInterval]="0"
+				        [(ngModel)]="loanDuration"
+				        [vertical]="vertical"
+				        (click)="calculateEMI();">
+	    			</mat-slider>
+				</div>
+			</div>
+			<div [ngClass]="[emi && totalInterest && totalPayment ? 'col-l-4': 'col-l-6']" class="result">
+				<div class="col-l-12">
+					<div>Monthly Payment(EMI): ₹
+						<span *ngIf="emi;else other_content">{{emi}}</span>
+						<ng-template #other_content>0</ng-template>
+					</div>
+				</div>
+				<div class="col-l-12">
+					<div>Total Interest Payable: ₹ 
+						<span *ngIf="totalInterest;else other_content">{{totalInterest}}</span>
+						<ng-template #other_content>0</ng-template>
+					</div>
+				</div>
+				<div class="col-l-12">
+					<div>Total Amount (Principal + Interest): ₹ 
+						<span *ngIf="totalPayment;else other_content">{{totalPayment}}</span>
+						<ng-template #other_content>0</ng-template>
+					</div>
+				</div>
+			</div>
+			<div class="col-l-4 chart" *ngIf="emi && totalInterest && totalPayment">
+				<jqxChart #myChart
+				    [width]="getWidth()" [height]="500"
+				    [title]="'Payment Break-up'"
+				    [description]="''"
+				    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
+				    [titlePadding]="titlePadding" [source]="dataAdapter" [showBorderLine]="true"
+				    [seriesGroups]="seriesGroups" [colorScheme]="'scheme02'">
+				</jqxChart>
+			</div>
+		</div>
+	</div>
+</section>

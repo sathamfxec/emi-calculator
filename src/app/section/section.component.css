@@ -1,0 +1,145 @@
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0;
+}
+
+.mat-slider-horizontal {
+  width: 300px;
+}
+
+.mat-slider-vertical {
+  height: 300px;
+}
+
+section {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*.head {
+	color: #2c2c2c;
+}*/
+
+.main-block {
+	box-shadow: 0 0 8px 1px rgba(0,0,0,.4);
+  background: white;
+	/*
+	box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+	*/
+}
+
+.main-block > div:first-child {
+  border-right: 2px dotted #cecccc;
+}
+
+.main-block label {
+	font-size: 13px;
+  font-weight: 400;
+  /*color: #65414e;*/
+}
+
+.main-block .loanAmount, .main-block .intRate, .main-block .loanDuration {
+	  text-indent: 5px;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.main-block .loanDuration {
+  width: 75px;
+}
+
+.main-block mat-slider {
+	width: 100%;
+}
+
+.result {
+  /*
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  */
+  text-align: center;
+  /*
+  color: #ffffff;
+  background: #f5f5f5;
+  */
+}
+
+.result div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 13px;
+  font-weight: 400;
+  background: #f5f5f5;
+  /*color: #65414e;*/
+  padding: 15px 0 15px 0;
+  margin-top: 10px;
+  /*background: white;
+  color: #65414e;
+  margin: 10px;
+  font-size: 13px;*/
+}
+
+@media only screen and (min-width: 600px) {
+  section {
+    padding: 10px 0 0 0;
+  }
+  section > div:first-child {
+    padding-bottom: 30px;
+  }
+  .main-block {
+    display: block;
+    padding: 80px 10px 25px 10px;
+  }
+  .main-block > div:first-child {
+    border: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .main-block {
+    display: flex;
+    padding: 0 10px 0 10px;
+  }
+  .main-block > div:first-child {
+    border-right: 2px dotted #cecccc;
+  }
+  section {
+    padding: 30px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  section {
+    padding: 0;
+  }
+  section > div:first-child {
+    padding-bottom: 30px;
+  }
+  section .head {
+    padding: 20px 0 20px 0;
+    position: fixed;
+    z-index: 1000;
+    background: grey;
+    color: white;
+  }
+  .main-block {
+    display: block;
+    padding: 80px 10px 25px 10px;
+  }
+  .main-block > div:first-child {
+    border: none;
+  }
+}

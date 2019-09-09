@@ -1,0 +1,13 @@
+Before Development
+* Create a project -> sudo ng new emi-calculator
+* Select the stylesheet format
+* Create the components header, section, footer using this syntax [sudo ng generate component xyz].
+* Then add sudo ng add @angular/material also select the prebuilt theme.
+* To install the slider -> Add the module (MatSliderModule) dependency in app.module.ts.
+* To intall the pie chart -> sudo npm install jqwidgets-ng
+* Add FormsModule in app.module.ts file
+
+After Development
+* Change the <base href="/"> to <base href="./">
+* To take the build mkdir dist under your project folder.
+* 

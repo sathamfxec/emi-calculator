@@ -1,0 +1,12 @@
+footer div {
+	display: flex;
+    align-items: center;
+    height: 44px;
+    justify-content: center;
+}
+
+footer div label {
+	font-size: 12px;
+	font-weight: 500;
+	color: white;
+}

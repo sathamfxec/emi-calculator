@@ -1,0 +1,12 @@
+header nav ul {
+	width: auto;
+}
+
+header nav, header nav ul, header nav ul li, header nav ul li div, header nav ul li div img {
+	height: 44px;
+}
+
+header nav ul li div img {
+	height: 30px;
+	border-radius: 50%;
+}
