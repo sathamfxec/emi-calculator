@@ -33,9 +33,7 @@ export class SectionComponent implements OnInit {
     this.loanAmtMax = 1500000;
     this.intRateMax = 100;
     this.loanDurMax = 36;
-    this.emi = 0;
-    this.totalPayment = 0;
-    this.totalInterest = 0;
+    this.reset();
     this.chart = this.setChartInitialValue();
     this.slider = this.setSliderInitialValue();
   }
@@ -80,13 +78,6 @@ export class SectionComponent implements OnInit {
     return chart;
   }
   /**
-    * Method to reset the values if the validation fails.
-    * @memberof appSection component
-  */
-  Emit(e) {
-    this.intRate = e.value;
-  }
-  /**
     * Method to set initial value for the slider.
     * @memberof appSection component
   */
@@ -101,6 +92,22 @@ export class SectionComponent implements OnInit {
       vertical: false
     };
     return slider;
+  }
+  /**
+    * Method to set reset the emi, totalpay and totalinteret.
+    * @memberof appSection component
+  */
+  reset() {
+    this.emi = 0;
+    this.totalPayment = 0;
+    this.totalInterest = 0;
+  }
+  /**
+    * Method to reset the values if the validation fails.
+    * @memberof appSection component
+  */
+  Emit(e) {
+    this.intRate = e.value;
   }
   /**
     * Method to update the values in the slider.
@@ -130,17 +137,21 @@ export class SectionComponent implements OnInit {
     * @memberof appSection component
   */
   calculateEMI() {
-  	let mir = (this.intRate / 100) / 12;
-  	let emi = this.loanAmount * mir * Math.pow((1 + mir), this.loanDuration) / ((Math.pow((1 + mir), this.loanDuration)) - 1);
-  	let totalPayment = emi * this.loanDuration;
-  	let totalInterest = totalPayment - this.loanAmount;
-  	this.emi = Math.round(emi);
-    this.totalPayment = Math.round(totalPayment);
-    this.totalInterest = Math.round(totalInterest);
-    
-    // show the pie chart
-    if (this.emi && this.totalInterest && this.totalPayment) {
-       this.showChart();
+    if(this.loanAmount && this.intRate && this.loanDuration) {
+      let mir = (this.intRate / 100) / 12;
+      let emi = this.loanAmount * mir * Math.pow((1 + mir), this.loanDuration) / ((Math.pow((1 + mir), this.loanDuration)) - 1);
+      let totalPayment = emi * this.loanDuration;
+      let totalInterest = totalPayment - this.loanAmount;
+
+      this.emi = Math.round(emi);
+      this.totalPayment = Math.round(totalPayment);
+      this.totalInterest = Math.round(totalInterest);
+      
+      // show the pie chart
+      (this.emi && this.totalInterest && this.totalPayment) ? this.showChart():'';
+    } else {
+      this.reset();
+      this.showChart();
     }
   }
   /**
