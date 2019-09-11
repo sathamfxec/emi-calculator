@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ![License](https://img.shields.io/npm/l/angular-star-rating.svg)
 
-![EMI-Calculator](https://ibb.co/8sVP6BW)
+![EMI-Calculator](https://i.ibb.co/GpjCcJK/k-shop-10.png)
 
 ## Development server
 
