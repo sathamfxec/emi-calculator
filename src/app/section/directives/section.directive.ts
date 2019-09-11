@@ -15,7 +15,7 @@ export class SectionDirective {
     let value = e.target.value;
   	switch (name) {
 		case "loanAmount": // Only numbers should not greater than 10 digits
-			if(code < 48 || code > 57 || value.length > 8) {
+			if(code < 48 || code > 57 || value.length > 7) {
 			   e.preventDefault();
 			}
 			break;

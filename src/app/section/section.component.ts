@@ -30,7 +30,7 @@ export class SectionComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.loanAmtMax = 150000;
+    this.loanAmtMax = 1500000;
     this.intRateMax = 100;
     this.loanDurMax = 36;
     this.emi = 0;
