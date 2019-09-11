@@ -1,6 +1,6 @@
 # EMI-calculator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2. And EMI-calculator functionality used in this web application which is used to calculate the monthly EMI for the outstanding loan amount.
 
 ![License](https://img.shields.io/npm/l/angular-star-rating.svg)
 
