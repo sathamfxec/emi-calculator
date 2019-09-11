@@ -10,13 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { jqxChartModule } from 'jqwidgets-ng/jqxchart';
+import { SectionDirective } from './section/directives/section.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SectionComponent,
-    FooterComponent
+    FooterComponent,
+    SectionDirective
   ],
   imports: [
     BrowserModule,

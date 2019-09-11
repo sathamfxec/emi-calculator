@@ -5,85 +5,64 @@
 		</div>
 		<div class="col-l-12 flex main-block">
 			<div [ngClass]="[emi && totalInterest && totalPayment ? 'col-l-4': 'col-l-6']" class="padding-10">
-				<!--
-				<div class="col-l-12 padding-bottom-20">
-					<label class="padding-right-10">Down Payment: ₹</label>
-					<input class="loanAmount" type="number" placeholder="Down Payment" name="downPayment" [(ngModel)]="downPayment" (input)="updateSliderMax('downPayment')">
-				</div>
-				<div class="col-l-12">
-					<mat-slider
-				        class="example-margin"
-				        [disabled]="disabled"
-				        [invert]="invert"
-				        [max]="downPmtMax"
-				        [min]="min"
-				        [step]="step"
-				        [thumbLabel]="thumbLabel"
-				        [tickInterval]="tickInterval"
-				        [(ngModel)]="downPayment"
-				        [vertical]="vertical"
-				        (click)="calculateEMI();">
-	    			</mat-slider>
-				</div>
-				-->
 				<div class="col-l-12 padding-bottom-20">
 					<label class="padding-right-10">Loan Amount: ₹</label>
-					<input class="loanAmount" type="number" placeholder="Loan Amount" name="loanAmount" [(ngModel)]="loanAmount" (input)="updateSliderMax('LoanAmount')">
+					<input class="loanAmount" type="number" placeholder="Loan Amount" name="loanAmount" [(ngModel)]="loanAmount" (input)="updateSliderMax('LoanAmount')" min="1" appSection>
 				</div>
 				<div class="col-l-12">
 					<mat-slider
 				        class="example-margin"
-				        [disabled]="disabled"
-				        [invert]="invert"
+				        [disabled]="slider.disabled"
+				        [invert]="slider.invert"
 				        [max]="loanAmtMax"
-				        [min]="min"
-				        [step]="step"
-				        [thumbLabel]="thumbLabel"
+				        [min]="slider.min"
+				        [step]="slider.step"
+				        [thumbLabel]="slider.thumbLabel"
 				        [tickInterval]="0"
 				        [(ngModel)]="loanAmount"
-				        [vertical]="vertical"
-				        (click)="calculateEMI();">
+				        [vertical]="slider.vertical"
+				        (click)="updateSliderMax('LoanAmount');">
 	    			</mat-slider>
 				</div>
 
 				<div class="col-l-12 padding-bottom-20">
 					<label class="padding-right-10">Interest Rate: %</label>
-					<input class="intRate" type="number" placeholder="Interest Rate" name="intRate" [(ngModel)]="intRate" (input)="updateSliderMax('InterestRate')" step="any">
+					<input class="intRate" type="number" placeholder="Interest Rate" name="intRate" [(ngModel)]="intRate" (input)="updateSliderMax('InterestRate')" (intRateEmit)=Emit($event); step="0.01" min="1" appSection>
 				</div>
 				<div class="col-l-12">
 					<mat-slider
 				        class="example-margin"
-				        [disabled]="disabled"
-				        [invert]="invert"
+				        [disabled]="slider.disabled"
+				        [invert]="slider.invert"
 				        [max]="intRateMax"
-				        [min]="min"
+				        [min]="slider.min"
 				        [step]="0.1"
-				        [thumbLabel]="thumbLabel"
+				        [thumbLabel]="slider.thumbLabel"
 				        [tickInterval]="0"
 				        [(ngModel)]="intRate"
-				        [vertical]="vertical"
-				        (click)="calculateEMI();">
+				        [vertical]="slider.vertical"
+				        (click)="updateSliderMax('InterestRate');">
 	    			</mat-slider>
 				</div>
 
 				<div class="col-l-12 padding-bottom-20">
 					<label class="padding-right-10">Loan Duration: </label>
-					<input class="loanDuration" type="number" placeholder="Duration" name="loanDuration" [(ngModel)]="loanDuration" (input)="updateSliderMax('LoanDuration')">
+					<input class="loanDuration" type="number" placeholder="Duration" name="loanDuration" [(ngModel)]="loanDuration" (input)="updateSliderMax('LoanDuration')" min="1" appSection>
 					<label class="padding-left-10">Months</label>
 				</div>
 				<div class="col-l-12">
 					<mat-slider
 				        class="example-margin"
-				        [disabled]="disabled"
-				        [invert]="invert"
+				        [disabled]="slider.disabled"
+				        [invert]="slider.invert"
 				        [max]="loanDurMax"
-				        [min]="min"
-				        [step]="step"
-				        [thumbLabel]="thumbLabel"
+				        [min]="slider.min"
+				        [step]="slider.step"
+				        [thumbLabel]="slider.thumbLabel"
 				        [tickInterval]="0"
 				        [(ngModel)]="loanDuration"
-				        [vertical]="vertical"
-				        (click)="calculateEMI();">
+				        [vertical]="slider.vertical"
+				        (click)="updateSliderMax('LoanDuration');">
 	    			</mat-slider>
 				</div>
 			</div>
@@ -112,9 +91,9 @@
 				    [width]="getWidth()" [height]="500"
 				    [title]="'Payment Break-up'"
 				    [description]="''"
-				    [showLegend]="true" [enableAnimations]="true" [padding]="padding"
-				    [titlePadding]="titlePadding" [source]="dataAdapter" [showBorderLine]="true"
-				    [seriesGroups]="seriesGroups" [colorScheme]="'scheme02'">
+				    [showLegend]="true" [enableAnimations]="true" [padding]="chart.padding"
+				    [titlePadding]="chart.titlePadding" [source]="chart.dataAdapter" [showBorderLine]="true"
+				    [seriesGroups]="chart.seriesGroups" [colorScheme]="'scheme02'">
 				</jqxChart>
 			</div>
 		</div>

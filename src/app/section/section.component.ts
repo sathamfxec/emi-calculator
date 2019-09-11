@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Slider, Chart } from './model/section.model';
 
 @Component({
   selector: 'app-section',
@@ -6,45 +7,100 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section.component.css']
 })
 export class SectionComponent implements OnInit {
+  // Loan amount declaration
+  public loanAmount: number;
+  public loanAmtMax: number;
 
-  public autoTicks: boolean = false;
-	public disabled: boolean = false;
-	public invert: boolean = false;
-  public min: number = 0;
-  public step: number = 1;
-  public thumbLabel: boolean = true;
-  public vertical: boolean = false;
+  // Interest rate declaration
+  public intRate: number;
+  public intRateMax: number;
 
-  public downPmtMax: number;
-	public loanAmtMax: number = 150000;
-	public intRateMax: number = 100;
-	public loanDurMax: number = 36;
-	public showTicks: boolean = false;
-  public downPayment: number = 0;
-	public loanAmount: number;
-	public intRate: number;
-	public loanDuration: number;
-	public emi: number = 0;
-  public totalPayment: number = 0;
-  public totalInterest: number = 0;
+  // Loan duration declaration
+  public loanDuration: number;
+  public loanDurMax: number;
 
-  public data: any;
-  public padding: any;
-  public titlePadding: any;
-  public source: any;
-  public dataAdapter: any;
-  public seriesGroups: any[];
+  // Result declaration
+  public emi: number;
+  public totalPayment: number;
+  public totalInterest: number;
 
-  getWidth() : any {
-    return '100%';
-  }
+  public chart: any;
+  public slider: any;
 
   constructor() {}
 
   ngOnInit() {
-     // this.downPmtMax = this.loanAmtMax / 2;
-     this.padding = { left: 5, top: 5, right: 5, bottom: 5 };
-     this.titlePadding = { left: 0, top: 0, right: 0, bottom: 10 };
+    this.loanAmtMax = 150000;
+    this.intRateMax = 100;
+    this.loanDurMax = 36;
+    this.emi = 0;
+    this.totalPayment = 0;
+    this.totalInterest = 0;
+    this.chart = this.setChartInitialValue();
+    this.slider = this.setSliderInitialValue();
+  }
+  /**
+    * Method to get width for the pie chart.
+    * @memberof appSection component
+  */
+  getWidth() : any {
+    return '100%';
+  }
+  /**
+    * Method to set initial value for the chart.
+    * @memberof appSection component
+  */
+  setChartInitialValue() {
+    // Set initial value for chart
+    let chart: Chart = {
+      data: [],
+      padding: { left: 5, top: 5, right: 5, bottom: 5 },
+      titlePadding: { left: 0, top: 0, right: 0, bottom: 10 },
+      source: {},
+      dataAdapter: {},
+      seriesGroups: [
+        {
+            type: 'pie',
+            showLabels: true,
+            series:
+            [
+                {
+                    dataField: 'value',
+                    displayText: 'name',
+                    labelRadius: 120,
+                    initialAngle: 15,
+                    radius: 150,
+                    centerOffset: 0,
+                    formatSettings: { sufix: '%', decimalPlaces: 1 }
+                }
+            ]
+        }
+      ]
+    };
+    return chart;
+  }
+  /**
+    * Method to reset the values if the validation fails.
+    * @memberof appSection component
+  */
+  Emit(e) {
+    this.intRate = e.value;
+  }
+  /**
+    * Method to set initial value for the slider.
+    * @memberof appSection component
+  */
+  setSliderInitialValue() {
+    // Set initial value for chart
+    let slider: Slider = {
+      disabled: false,
+      invert: false,
+      min: 0,
+      step: 1,
+      thumbLabel: true,
+      vertical: false
+    };
+    return slider;
   }
   /**
     * Method to update the values in the slider.
@@ -52,12 +108,6 @@ export class SectionComponent implements OnInit {
   */
   updateSliderMax(code) {
   	switch (code) {
-      /*
-      case "downPayment":
-        (this.downPayment > this.downPmtMax) ? this.downPmtMax = this.downPayment : '';
-        this.calculateEMI();
-        break;
-      */
   		case "LoanAmount":
         (this.loanAmount > this.loanAmtMax) ? this.loanAmtMax = this.loanAmount : '';
   			this.calculateEMI();
@@ -80,7 +130,6 @@ export class SectionComponent implements OnInit {
     * @memberof appSection component
   */
   calculateEMI() {
-  	this.loanAmount = this.loanAmount - this.downPayment;
   	let mir = (this.intRate / 100) / 12;
   	let emi = this.loanAmount * mir * Math.pow((1 + mir), this.loanDuration) / ((Math.pow((1 + mir), this.loanDuration)) - 1);
   	let totalPayment = emi * this.loanDuration;
@@ -102,49 +151,28 @@ export class SectionComponent implements OnInit {
     let loanAmtPer = (this.loanAmount / this.totalPayment) * 100;
     let intPer = 100 - loanAmtPer;
 
-    this.data = [
+    this.chart.data = [
       { "name": "Loan Amount", "value": loanAmtPer },
       { "name": "Interest", "value":  intPer}
     ];
 
-    this.source =
+    this.chart.source =
     {
        datatype: 'json',
        datafields: [
          { name: 'name', type: 'string' },
          { name: 'value', type: 'number' }
        ],
-       localdata: this.data,
+       localdata: this.chart.data,
        async: false
     };
 
-    this.dataAdapter = new jqx.dataAdapter(this.source, { 
+    this.chart.dataAdapter = new jqx.dataAdapter(this.chart.source, { 
       async: false, 
       autoBind: true, 
       loadError: (xhr: any, status: any, error: any) => { 
-        alert('Error loading "' + this.source.url + '" : ' + error);
+        alert('Error loading ' + error);
       } 
     });
-
-    this.seriesGroups =
-    [
-        {
-            type: 'pie',
-            showLabels: true,
-            series:
-            [
-                {
-                    dataField: 'value',
-                    displayText: 'name',
-                    labelRadius: 120,
-                    initialAngle: 15,
-                    radius: 150,
-                    centerOffset: 0,
-                    formatSettings: { sufix: '%', decimalPlaces: 1 }
-                }
-            ]
-        }
-    ];
   }
-
 }
